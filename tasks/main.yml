@@ -1,5 +1,5 @@
 ---
-# tasks file for opdk-setup-local-repository-archive
+# tasks file for apigee-opdk-setup-local-repository-archive
 - name: Clean up and repos in /tmp
   file:
     path: '{{ archive_folder }}/repos'

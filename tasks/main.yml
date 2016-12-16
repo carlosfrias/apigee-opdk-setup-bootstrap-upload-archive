@@ -4,9 +4,25 @@
   file:
     path: '{{ archive_folder }}/repos'
     state: absent
+#- block:
+#  - name: Unarchive local archive to remote nodes
+#    unarchive:
+#      src: '{{ local_resource_path }}/{{ archive_name }}'
+#      dest: '{{ archive_folder }}'
+#      copy: '{{ copy_archive }}'
+#
+#  rescue:
+- name: Install rsync if its missing
+  yum:
+    name: rsync
+    state: present
 
-- name: Unarchive local archive to remote nodes
-  unarchive:
+
+- name: Use rsync to copy to remote node
+  synchronize:
+    mode: pull
     src: '{{ local_resource_path }}/{{ archive_name }}'
-    dest: '{{ archive_folder }}'
-    copy: '{{ copy_archive }}'
+    dest: "rsync://{{ groups['mirror'][0] }}/{{ archive_folder }}"
+
+
+

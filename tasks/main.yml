@@ -22,7 +22,7 @@
   synchronize:
     mode: pull
     src: '{{ local_resource_path }}/{{ archive_name }}'
-    dest: "rsync://{{ groups['mirror'][0] }}/{{ archive_folder }}"
+    dest: "rsync://{{ hostvars[groups['mirror'][0]][local_address] }}/{{ archive_folder }}"
 
 
 

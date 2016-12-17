@@ -19,8 +19,8 @@
 
 - name: Use rsync to copy to remote node
   synchronize:
-    dest: "{{ archive_folder }}/{{ archive_name }}"
     src: "{{ local_resource_path }}/{{ archive_name }}"
+    dest: "{{ archive_folder }}/{{ archive_name }}"
 
 
 

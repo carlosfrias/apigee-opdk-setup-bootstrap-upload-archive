@@ -18,6 +18,7 @@
     state: present
 
 - name: Use rsync to copy to remote node
+  delegate_to: '{{ inventory_hostname }}'
   synchronize:
     mode: push
     dest: "{{ archive_folder }}/{{ archive_name }}"

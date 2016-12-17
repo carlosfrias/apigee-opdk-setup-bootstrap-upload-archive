@@ -20,8 +20,8 @@
 - name: Use rsync to copy to remote node
   synchronize:
     mode: pull
-    src: '{{ local_resource_path }}/{{ archive_name }}'
-    dest: "rsync://{{ hostvars[groups['mirror'][0]][local_address] }}/{{ archive_folder }}"
+    dest: '{{ local_resource_path }}/{{ archive_name }}'
+    src: "rsync://{{ hostvars[groups['mirror'][0]]['local_address'] }}/{{ archive_folder }}"
 
 
 

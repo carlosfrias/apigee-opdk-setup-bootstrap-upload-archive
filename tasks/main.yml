@@ -18,10 +18,9 @@
     state: present
 
 - name: Use rsync to copy to remote node
-  become_user: ec2-user
   synchronize:
-    mode: push
-    dest: "{{ local_resource_path }}/{{ archive_name }}"
+    mode: pull
+    dest: "{{ archive_folder }}/{{ archive_name }}"
     src: "{{ hostvars[groups['mirror'][0]]['local_address'] }}:{{ archive_path }}"
 
 

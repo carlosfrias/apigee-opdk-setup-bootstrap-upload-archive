@@ -18,10 +18,11 @@
     state: present
 
 - name: Use rsync to copy to remote node
+  delegate_to: '{{ inventory_hostname }}'
   synchronize:
     mode: pull
     dest: '{{ local_resource_path }}/{{ archive_name }}'
-    src: "rsync://{{ hostvars[groups['mirror'][0]]['local_address'] }}/{{ archive_folder }}"
+    src: "rsync://{{ hostvars[groups['mirror'][0]]['local_address'] }}{{ archive_path }}"
 
 
 

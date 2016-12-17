@@ -24,7 +24,7 @@
 
 - name: Unarchive local archive to remote nodes
   unarchive:
-    src: '{{ local_resource_path }}/{{ archive_name }}'
+    src: '{{ archive_folder }}/{{ archive_name }}'
     dest: '{{ archive_folder }}'
     copy: false
 

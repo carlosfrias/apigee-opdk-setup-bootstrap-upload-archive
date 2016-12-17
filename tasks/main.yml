@@ -17,7 +17,6 @@
     name: rsync
     state: present
 
-
 - name: Use rsync to copy to remote node
   synchronize:
     mode: pull

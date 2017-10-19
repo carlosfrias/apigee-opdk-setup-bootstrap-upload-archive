@@ -2,13 +2,13 @@
 # tasks file for apigee-opdk-setup-local-repository-archive
 - name: Clean up and repos in /tmp
   file:
-    path: '{{ archive_folder }}/repos'
+    path: '{{ apigeerepobasepath }}/repos'
     state: absent
 #- block:
 #  - name: Unarchive local archive to remote nodes
 #    unarchive:
-#      src: '{{ local_resource_path }}/{{ archive_name }}'
-#      dest: '{{ archive_folder }}'
+#      src: '{{ local_apigee_path }}/{{ archive_name }}'
+#      dest: '{{ apigeerepobasepath }}'
 #      copy: '{{ copy_archive }}'
 #
 #  rescue:
@@ -19,13 +19,13 @@
 
 - name: Use rsync to copy to remote node
   synchronize:
-    src: "{{ local_resource_path }}/{{ archive_name }}"
-    dest: "{{ archive_folder }}/{{ archive_name }}"
+    src: "{{ local_apigee_path }}/{{ archive_name }}"
+    dest: "{{ apigeerepobasepath }}/{{ archive_name }}"
 
 - name: Unarchive local archive to remote nodes
   unarchive:
-    src: '{{ archive_folder }}/{{ archive_name }}'
-    dest: '{{ archive_folder }}'
+    src: '{{ apigeerepobasepath }}/{{ archive_name }}'
+    dest: '{{ apigeerepobasepath }}'
     copy: false
 
 

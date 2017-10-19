@@ -6,7 +6,7 @@
     path: '{{ apigeerepobasepath }}/repos'
     state: absent
 
-- name: Ensure folders exists
+- name: Ensure repo folders exists
   become: true
   file:
     path: '{{ apigeerepobasepath }}/repos'

@@ -19,7 +19,7 @@
     state: present
 
 - name: Copy archive to target node
-  become: no
+  become: true
   synchronize:
     src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
     dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"

@@ -20,6 +20,7 @@
       state: present
 
 - name: Use rsync to copy to remote node
+  become: no
   synchronize:
     src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
     dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"

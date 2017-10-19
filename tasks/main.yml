@@ -25,6 +25,7 @@
     partial: True
     src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
     dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
+    rsync_opts: ['--inplace']
 
 - name: Unarchive on target node
   become: true

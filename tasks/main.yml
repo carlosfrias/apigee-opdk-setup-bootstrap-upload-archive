@@ -25,6 +25,7 @@
     dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
 
 - name: Unarchive on target node
+  become: true
   unarchive:
     src: '{{ apigeerepobasepath }}/{{ apigee_archive_name }}'
     dest: '{{ apigeerepobasepath }}'

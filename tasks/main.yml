@@ -11,6 +11,8 @@
   file:
     path: '{{ apigeerepobasepath }}/repos'
     state: directory
+    owner: "{{ opdk_user_name }}"
+    group: "{{ opdk_group_name }}"
 
 - name: Ensure rsync is present
   become: true
@@ -19,10 +21,12 @@
     state: present
 
 - name: Copy archive to target node
-  become: true
   synchronize:
+    partial: yes
     src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
     dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
+    owner: "{{ opdk_user_name }}"
+    group: "{{ opdk_group_name }}"
 
 - name: Unarchive on target node
   become: true
@@ -30,5 +34,7 @@
     src: '{{ apigeerepobasepath }}/{{ apigee_archive_name }}'
     dest: '{{ apigeerepobasepath }}'
     copy: false
+    owner: "{{ opdk_user_name }}"
+    group: "{{ opdk_group_name }}"
 
 

@@ -12,19 +12,19 @@
     path: '{{ apigeerepobasepath }}/repos'
     state: directory
 
-- name: Install rsync if its missing
+- name: Ensure rsync is present
   become: true
   yum:
     name: rsync
     state: present
 
-- name: Use rsync to copy to remote node
+- name: Copy archive to target node
   become: no
   synchronize:
     src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
     dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
 
-- name: Unarchive local archive to remote nodes
+- name: Unarchive on target node
   unarchive:
     src: '{{ apigeerepobasepath }}/{{ apigee_archive_name }}'
     dest: '{{ apigeerepobasepath }}'

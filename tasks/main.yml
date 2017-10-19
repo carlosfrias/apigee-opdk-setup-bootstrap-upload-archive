@@ -22,7 +22,6 @@
 
 - name: Copy archive to target node
   synchronize:
-    partial: True
     src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
     dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
     rsync_opts: ['--partial-dir={{ opdk_installer_path }}']

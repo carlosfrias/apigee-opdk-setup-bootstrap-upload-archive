@@ -1,17 +1,15 @@
 ---
 # tasks file for apigee-opdk-setup-local-repository-archive
-- name: Clean up and repos in /tmp
+- name: Clean up any old repos
   file:
     path: '{{ apigeerepobasepath }}/repos'
     state: absent
-#- block:
-#  - name: Unarchive local archive to remote nodes
-#    unarchive:
-#      src: '{{ local_apigee_path }}/{{ apigee_archive_name }}'
-#      dest: '{{ apigeerepobasepath }}'
-#      copy: '{{ copy_archive }}'
-#
-#  rescue:
+
+- name: Ensure folders exists
+  file:
+    path: '{{ apigeerepobasepath }}/repos'
+    state: directory
+
 - name: Install rsync if its missing
   yum:
     name: rsync

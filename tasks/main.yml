@@ -7,7 +7,7 @@
 #- block:
 #  - name: Unarchive local archive to remote nodes
 #    unarchive:
-#      src: '{{ local_apigee_path }}/{{ archive_name }}'
+#      src: '{{ local_apigee_path }}/{{ apigee_archive_name }}'
 #      dest: '{{ apigeerepobasepath }}'
 #      copy: '{{ copy_archive }}'
 #
@@ -19,12 +19,12 @@
 
 - name: Use rsync to copy to remote node
   synchronize:
-    src: "{{ local_apigee_path }}/{{ archive_name }}"
-    dest: "{{ apigeerepobasepath }}/{{ archive_name }}"
+    src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
+    dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
 
 - name: Unarchive local archive to remote nodes
   unarchive:
-    src: '{{ apigeerepobasepath }}/{{ archive_name }}'
+    src: '{{ apigeerepobasepath }}/{{ apigee_archive_name }}'
     dest: '{{ apigeerepobasepath }}'
     copy: false
 

@@ -22,10 +22,9 @@
 
 - name: Copy archive to target node
   synchronize:
+    partial: True
     src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
     dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
-    owner: "{{ opdk_user_name }}"
-    group: "{{ opdk_group_name }}"
 
 - name: Unarchive on target node
   become: true

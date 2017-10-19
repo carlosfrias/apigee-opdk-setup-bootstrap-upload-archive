@@ -1,19 +1,23 @@
 ---
 # tasks file for apigee-opdk-setup-local-repository-archive
-- name: Clean up any old repos
-  file:
-    path: '{{ apigeerepobasepath }}/repos'
-    state: absent
+- block:
+  become: true
+  - name: Clean up any old repos
+    become: true
+    file:
+      path: '{{ apigeerepobasepath }}/repos'
+      state: absent
 
-- name: Ensure folders exists
-  file:
-    path: '{{ apigeerepobasepath }}/repos'
-    state: directory
+  - name: Ensure folders exists
+    become: true
+    file:
+      path: '{{ apigeerepobasepath }}/repos'
+      state: directory
 
-- name: Install rsync if its missing
-  yum:
-    name: rsync
-    state: present
+  - name: Install rsync if its missing
+    yum:
+      name: rsync
+      state: present
 
 - name: Use rsync to copy to remote node
   synchronize:

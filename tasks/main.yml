@@ -38,6 +38,7 @@
         regexp: "^(Defaults)(.*)(requiretty)"
         line: '\1\2\!\3'
         state: present
+        validate: '/usr/sbin/visudo -cf %s'
 
     - name: Copy archive to target node
       synchronize:
@@ -54,6 +55,7 @@
         regexp: "^(Defaults)(.*)(requiretty)"
         line: '\1\2\!\3'
         state: present
+        validate: '/usr/sbin/visudo -cf %s'
 
 
 - name: Unarchive on target node

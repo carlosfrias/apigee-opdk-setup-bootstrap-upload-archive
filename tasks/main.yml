@@ -35,7 +35,7 @@
         backrefs: yes
         backup: yes
         regex: "^(Default).*(requiretty)"
-        line: "\1 ! \2"
+        line: '\1 \! \2'
         state: present
 
     - name: Copy archive to target node

@@ -34,7 +34,7 @@
         path: /etc/sudoers
         backrefs: yes
         backup: yes
-        regex: "^(Default).*(requiretty)"
+        regexp: "^(Default).*(requiretty)"
         line: '\1 \! \2'
         state: present
 

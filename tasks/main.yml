@@ -29,14 +29,14 @@
 #    register: results
 #    failed_when: "'sudo: sorry, you must have a tty to run sudo' in results.stderr"
   rescue:
-    - name: Update to include tty
+    - name: Update to include tty temporarily
       become: yes
       lineinfile:
         path: /etc/sudoers
         backrefs: yes
         backup: yes
-        regexp: "^(Default).*(requiretty)"
-        line: '\1 \! \2'
+        regexp: "^(Defaults)(.*)(requiretty)"
+        line: '\1\2\!\3'
         state: present
 
     - name: Copy archive to target node
@@ -44,6 +44,16 @@
         src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
         dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
         rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
+
+    - name: Restore tty modified temporarily
+      become: yes
+      lineinfile:
+        path: /etc/sudoers
+        backrefs: yes
+        backup: yes
+        regexp: "^(Defaults)(.*)(requiretty)"
+        line: '\1\2\!\3'
+        state: present
 
 
 - name: Unarchive on target node

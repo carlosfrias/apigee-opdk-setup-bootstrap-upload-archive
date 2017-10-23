@@ -27,7 +27,7 @@
       dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
       rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
     register: results
-    failed_when: 'sudo: sorry, you must have a tty to run sudo' in results.stderr'
+    failed_when: 'sudo: sorry, you must have a tty to run sudo' in results.stderr
   rescue:
     - name: Update to include tty
       lineinfile:

@@ -20,6 +20,7 @@
 
 - block:
   - name: Copy archive to target node
+    become: true
     synchronize:
       src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
       dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
@@ -39,6 +40,7 @@
         validate: '/usr/sbin/visudo -cf %s'
 
     - name: Copy archive to target node
+      become: true
       synchronize:
         src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
         dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"

@@ -11,8 +11,6 @@
   file:
     path: '{{ apigeerepobasepath | default(opdk_installer_path) }}/repos'
     state: directory
-    owner: "{{ opdk_user_name }}"
-    group: "{{ opdk_group_name }}"
 
 - name: Ensure rsync is present
   become: true
@@ -23,8 +21,6 @@
 - block:
   - name: Copy archive to target node
     synchronize:
-      owner: "{{ opdk_user_name }}"
-      group: "{{ opdk_group_name }}"
       src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
       dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
       rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
@@ -44,8 +40,6 @@
 
     - name: Copy archive to target node
       synchronize:
-        owner: "{{ opdk_user_name }}"
-        group: "{{ opdk_group_name }}"
         src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
         dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
         rsync_opts: ['--partial-dir={{ opdk_installer_path }}']

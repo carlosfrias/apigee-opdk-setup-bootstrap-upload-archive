@@ -23,6 +23,8 @@
 - block:
   - name: Copy archive to target node
     synchronize:
+      owner: "{{ opdk_user_name }}"
+      group: "{{ opdk_group_name }}"
       src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
       dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
       rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
@@ -42,6 +44,8 @@
 
     - name: Copy archive to target node
       synchronize:
+        owner: "{{ opdk_user_name }}"
+        group: "{{ opdk_group_name }}"
         src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
         dest: "{{ apigeerepobasepath }}/{{ apigee_archive_name }}"
         rsync_opts: ['--partial-dir={{ opdk_installer_path }}']

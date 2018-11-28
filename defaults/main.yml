@@ -1,3 +1,3 @@
 ---
 # defaults file for apigee-opdk-setup-local-repository-archive
-archive_name: "apigee-{{ apigeereleasever | default(opdk_version) }}.tar.gz"
+apigee_archive_name: "apigee-{{ apigeereleasever | default(opdk_version) }}.tar.gz"

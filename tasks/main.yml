@@ -58,6 +58,7 @@
         validate: '/usr/sbin/visudo -cf %s'
 
 - name: Create folder for archive contents
+  become: true
   file:
     path: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}'
     state: directory

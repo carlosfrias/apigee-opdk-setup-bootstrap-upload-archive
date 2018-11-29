@@ -61,8 +61,11 @@
 - name: Create folder for archive contents
   become: true
   file:
-    path: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}'
+    path: '{{ item }}'
     state: directory
+  with_items:
+  - "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
+  - "{{ apigeerepobasepath | default(opdk_installer_path) }}/data/apigee-mirror"
 
 - name: Unarchive on target node
   become: true

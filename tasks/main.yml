@@ -68,7 +68,7 @@
   become: true
   unarchive:
     src: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_file_name }}'
-    dest: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}'
+    dest: '{{ apigeerepobasepath | default(opdk_installer_path) }}/data/apigee-mirror'
     copy: false
 #    owner: "{{ opdk_user_name }}"
 #    group: "{{ opdk_group_name }}"

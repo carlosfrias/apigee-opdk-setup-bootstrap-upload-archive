@@ -57,6 +57,10 @@
         state: present
         validate: '/usr/sbin/visudo -cf %s'
 
+- name: Create folder for archive contents
+  file:
+    path: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}'
+    state: directory
 
 - name: Unarchive on target node
   become: true

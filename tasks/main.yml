@@ -23,7 +23,7 @@
     become: true
     synchronize:
       src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
-      dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
+      dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_file_name }}"
       rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
 #    register: results
 #    failed_when: "'sudo: sorry, you must have a tty to run sudo' in results.stderr"
@@ -43,7 +43,7 @@
       become: true
       synchronize:
         src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
-        dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
+        dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_file_name }}"
         rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
 
     - name: Restore tty modified temporarily

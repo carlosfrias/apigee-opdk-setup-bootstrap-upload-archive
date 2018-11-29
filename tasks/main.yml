@@ -22,7 +22,7 @@
   - name: Copy archive to target node
     become: true
     synchronize:
-      src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
+      src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
       dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
       rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
 #    register: results
@@ -42,7 +42,7 @@
     - name: Copy archive to target node
       become: true
       synchronize:
-        src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
+        src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
         dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
         rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
 
@@ -61,8 +61,8 @@
 - name: Unarchive on target node
   become: true
   unarchive:
-    src: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}'
-    dest: '{{ apigeerepobasepath | default(opdk_installer_path) }}'
+    src: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_file_name }}'
+    dest: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}'
     copy: false
 #    owner: "{{ opdk_user_name }}"
 #    group: "{{ opdk_group_name }}"

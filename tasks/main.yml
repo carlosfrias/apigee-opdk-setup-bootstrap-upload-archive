@@ -65,13 +65,13 @@
     state: directory
   with_items:
   - "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
-  - "{{ apigeerepobasepath | default(opdk_installer_path) }}/data/apigee-mirror"
+  - "{{ apigeerepobasepath | default(opdk_installer_path) }}"
 
 - name: Unarchive on target node
   become: true
   unarchive:
     src: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_file_name }}'
-    dest: '{{ apigeerepobasepath | default(opdk_installer_path) }}/data/apigee-mirror'
+    dest: '{{ apigeerepobasepath | default(opdk_installer_path) }}'
     copy: false
 #    owner: "{{ opdk_user_name }}"
 #    group: "{{ opdk_group_name }}"

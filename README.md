@@ -23,7 +23,6 @@ These are the variables that can be updated for this role:
 | apigeerepobasepath | The location from which to download the Apigee Mirror archive. Default: /opt/apigee/data/apigee-mirror |
 | local_apigee_path | Local path where the Apigee Mirror archive will be downloaded: Default: ~/.apigee |
 
-
 Dependencies
 ------------
 

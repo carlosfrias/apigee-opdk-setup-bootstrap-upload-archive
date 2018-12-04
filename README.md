@@ -6,7 +6,8 @@ Requirements
 ------------
 
 The Apigee Bootstrap must be installed so that the Apigee Service component is available prior to 
-running this role. The  Apigee Mirror exists and has been packaged into a downloadable archive.
+running this role. The  Apigee Mirror archive has been downloaded and is ready to be uploaded to the 
+target server. 
 
 Role Variables
 --------------
@@ -16,6 +17,11 @@ These are the variables that can be updated for this role:
 | Name | Description |
 | --- | --- |
 | opdk_version | The version of OPDK to use. Default: 4.18.05 |
+| apigee_archive_name | The name of the archive. Default:  apigee-4.18.05 |
+| apigee_archive_file_name | The name of the archive file. Default: apigee-4.18.05.tar.gz |
+| apigee_home | Apigee installation home. Default: /opt/apigee |
+| apigeerepobasepath | The location from which to download the Apigee Mirror archive. Default: /opt/apigee/data/apigee-mirror |
+| local_apigee_path | Local path where the Apigee Mirror archive will be downloaded: Default: ~/.apigee |
 
 
 Dependencies

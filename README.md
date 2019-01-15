@@ -40,9 +40,9 @@ Example Playbook
       tags: ['upload']
       vars:
         ansible_workspace: "~/.ansible"
-        apigee_workspace: "~/apigee-workspace"
+        apigee_workspace: "~/.apigee-workspace"
         ansible_workspace: "~/.ansible"
-        apigee_workspace: "~/apigee-workspace"
+        apigee_workspace: "~/.apigee-workspace"
         opdk_version: 4.18.05
         apigeereleasever: 4.18.05
         property_folders:

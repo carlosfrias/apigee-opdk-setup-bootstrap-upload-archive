@@ -33,7 +33,7 @@
       become: yes
       copy:
         content: 'Defaults !requiretty'
-        path: /etc/sudoers.d/apigee-requiretty
+        dest: /etc/sudoers.d/apigee-requiretty
 
     - block:
 

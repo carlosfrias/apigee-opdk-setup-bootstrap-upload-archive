@@ -31,14 +31,9 @@
   rescue:
     - name: Update to include tty temporarily
       become: yes
-      lineinfile:
-        path: /etc/sudoers
-        backrefs: yes
-        backup: yes
-        regexp: "^(Defaults)(.*)(requiretty)"
-        line: '\1\2!\3'
-        state: present
-        validate: '/usr/sbin/visudo -cf %s'
+      copy:
+        content: 'Defaults !requiretty'
+        path: /etc/sudoers.d/apigee-requiretty
 
     - block:
 
@@ -52,17 +47,12 @@
       rescue:
         - name: Copy archive using SCP
           shell: "scp -i ~/.ssh/id_rsa {{ local_apigee_path }}/{{ apigee_archive_file_name }} {{ inventory_hostname }}:{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
+          delegate_to: localhost
 
-    - name: Restore tty modified temporarily
-      become: yes
-      lineinfile:
-        path: /etc/sudoers
-        backrefs: yes
-        backup: yes
-        regexp: "^(Defaults)(.*)(requiretty)"
-        line: '\1\2!\3'
-        state: present
-        validate: '/usr/sbin/visudo -cf %s'
+    - name: Remove temporary tty
+      file:
+        path: /etc/sudoers.d/apigee-requiretty
+        state: absent
 
 - name: Create folder for archive contents
   become: true

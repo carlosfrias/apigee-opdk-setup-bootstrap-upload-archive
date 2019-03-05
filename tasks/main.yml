@@ -51,7 +51,7 @@
 
       rescue:
         - name: Copy archive using SCP
-          shell: "scp {{ local_apigee_path }}/{{ apigee_archive_file_name }} {{ inventory_hostname }}:{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
+          shell: "scp -i ~/.ssh/id_rsa {{ local_apigee_path }}/{{ apigee_archive_file_name }} {{ inventory_hostname }}:{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
 
     - name: Restore tty modified temporarily
       become: yes

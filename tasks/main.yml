@@ -40,12 +40,18 @@
         state: present
         validate: '/usr/sbin/visudo -cf %s'
 
-    - name: Copy archive to target node
-      become: true
-      synchronize:
-        src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
-        dest: "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
-        rsync_opts: ['--partial-dir={{ opdk_resources_path }}']
+    - block:
+
+      - name: Copy archive to target node
+        become: true
+        synchronize:
+          src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
+          dest: "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
+          rsync_opts: ['--partial-dir={{ opdk_resources_path }}']
+
+      rescue:
+        - name: Copy archive using SCP
+          shell: "scp {{ local_apigee_path }}/{{ apigee_archive_file_name }} {{ inventory_hostname }}:{{ apigeerepobasepath }} | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
 
     - name: Restore tty modified temporarily
       become: yes

@@ -11,6 +11,8 @@
   file:
     path: '{{ apigeerepobasepath | default(opdk_resources_path) }}'
     state: directory
+    owner: "{{ ansible_ssh_user }}"
+
 
 - name: Ensure rsync is present
   become: true

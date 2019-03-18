@@ -1,5 +1,6 @@
 ---
 # tasks file for apigee-opdk-setup-local-repository-archive
+
 #- name: Clean up any old repos
 #  become: true
 #  file:
@@ -27,8 +28,6 @@
       src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
       dest: "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
       rsync_opts: ['--partial-dir={{ opdk_resources_path }}']
-#    register: results
-#    failed_when: "'sudo: sorry, you must have a tty to run sudo' in results.stderr"
 
   rescue:
     - name: Update to include tty temporarily

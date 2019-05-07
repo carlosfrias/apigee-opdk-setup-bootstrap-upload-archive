@@ -32,6 +32,16 @@
 #    register: results
 #    failed_when: "'sudo: sorry, you must have a tty to run sudo' in results.stderr"
   rescue:
+    - name: Update to include tty temporarily
+      become: yes
+      lineinfile:
+        path: /etc/sudoers
+        backrefs: yes
+        backup: yes
+        regexp: "^(Defaults)(.*)(requiretty)"
+        line: '\1\2!\3'
+        state: present
+        validate: '/usr/sbin/visudo -cf %s'
 
     - name: Copy archive to target node
       become: true
@@ -39,19 +49,17 @@
         src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
         dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
         rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
-        owner: "{{ opdk_user }}"
-        group: "{{ opdk_group }}"
 
-#    - name: Restore tty modified temporarily
-#      become: yes
-#      lineinfile:
-#        path: /etc/sudoers
-#        backrefs: yes
-#        backup: yes
-#        regexp: "^(Defaults)(.*)(requiretty)"
-#        line: '\1\2!\3'
-#        state: present
-#        validate: '/usr/sbin/visudo -cf %s'
+    - name: Restore tty modified temporarily
+      become: yes
+      lineinfile:
+        path: /etc/sudoers
+        backrefs: yes
+        backup: yes
+        regexp: "^(Defaults)(.*)(requiretty)"
+        line: '\1\2!\3'
+        state: present
+        validate: '/usr/sbin/visudo -cf %s'
 
 
 - name: Unarchive on target node

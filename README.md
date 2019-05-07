@@ -1,41 +1,69 @@
-Role Name
-=========
+# Apigee OPDK Mirror Archive Uploader
 
-A brief description of the role goes here.
+This role will upload an Apigee Mirror to be used to install Apigee in an offline environments.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+The Apigee Bootstrap must be installed so that the Apigee Service component is available prior to 
+running this role. The  Apigee Mirror archive has been downloaded and is ready to be uploaded to the 
+target server. 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+These are the variables that can be updated for this role:
+
+| Name | Description |
+| --- | --- |
+| opdk_version is The version of OPDK to use. Default: 4.18.05 |
+| apigee_archive_name | The name of the archive. Default:  apigee-4.18.05 |
+| apigee_archive_file_name | The name of the archive file. Default: apigee-4.18.05.tar.gz |
+| apigee_home | Apigee installation home. Default: /opt/apigee |
+| apigeerepobasepath | The location from which to download the Apigee Mirror archive. Default: /opt/apigee/data/apigee-mirror |
+| local_apigee_path | Local path where the Apigee Mirror archive will be downloaded: Default: ~/.apigee |
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Dependencies with the Ansible Galaxy requirements file. Role dependencies are:
+
+* apigee-opdk-default-settings
+* apigee-opdk-modules 
+* apigee-opdk-setup-bootstrap-upload-archive
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - name: Upload apigee mirror archive
+      hosts: "{{ target_hosts }}"
+      tags: ['upload']
+      vars:
+        ansible_workspace: "~/.ansible"
+        apigee_workspace: "~/.apigee-workspace"
+        ansible_workspace: "~/.ansible"
+        apigee_workspace: "~/.apigee-workspace"
+        opdk_version: 4.18.05
+        apigeereleasever: 4.18.05
+        property_folders:
+        - "~/.apigee-secure"
       roles:
-         - { role: username.rolename, x: 42 }
+      - { role: apigee-opdk-setup-default-settings, tags: ['cache'] }
+      - { role: apigee-opdk-modules }
+      - { role: apigee-opdk-setup-bootstrap-upload-archive, tags: ['upload'] }
+
 
 License
 -------
 
-BSD
+Apache 2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Carlos Frias
+
+
 <!-- BEGIN Google Required Disclaimer -->
 
 # Not Google Product Clause

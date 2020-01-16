@@ -30,11 +30,11 @@
       rsync_opts: ['--partial-dir={{ opdk_resources_path }}']
 
   rescue:
-    - name: Update to include tty temporarily
-      become: yes
-      copy:
-        content: 'Defaults !requiretty'
-        dest: /etc/sudoers.d/apigee-requiretty
+#    - name: Update to include tty temporarily
+#      become: yes
+#      copy:
+#        content: 'Defaults !requiretty'
+#        dest: /etc/sudoers.d/apigee-requiretty
 
     - block:
 
@@ -50,11 +50,11 @@
           shell: "scp -i ~/.ssh/id_rsa {{ local_apigee_path }}/{{ apigee_archive_file_name }} {{ inventory_hostname }}:{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
           delegate_to: localhost
 
-    - name: Remove temporary tty
-      become: yes
-      file:
-        path: /etc/sudoers.d/apigee-requiretty
-        state: absent
+#    - name: Remove temporary tty
+#      become: yes
+#      file:
+#        path: /etc/sudoers.d/apigee-requiretty
+#        state: absent
 
 - name: Create folder for archive contents
   become: true

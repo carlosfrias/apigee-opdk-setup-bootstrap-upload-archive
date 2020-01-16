@@ -1,19 +1,12 @@
 ---
 # tasks file for apigee-opdk-setup-local-repository-archive
-
-#- name: Clean up any old repos
-#  become: true
-#  file:
-#    path: '{{ apigeerepobasepath | default(opdk_resources_path) }}/repos'
-#    state: absent
-
 - name: Ensure repo folders exists
   become: true
   file:
-    path: '{{ apigeerepobasepath | default(opdk_resources_path) }}'
+    path: '{{ apigeerepobasepath | default(opdk_installer_path) }}/repos'
     state: directory
-    owner: "{{ ansible_ssh_user }}"
-
+    owner: "{{ opdk_user_name }}"
+    group: "{{ opdk_group_name }}"
 
 - name: Ensure rsync is present
   become: true
@@ -25,44 +18,28 @@
   - name: Copy archive to target node
     become: true
     synchronize:
-      src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
-      dest: "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
-      rsync_opts: ['--partial-dir={{ opdk_resources_path }}']
-
+      src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
+      dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
+      rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
+      owner: "{{ opdk_user_name }}"
+      group: "{{ opdk_group_name }}"
+#    register: results
+#    failed_when: "'sudo: sorry, you must have a tty to run sudo' in results.stderr"
   rescue:
-#    - name: Update to include tty temporarily
-#      become: yes
-#      copy:
-#        content: 'Defaults !requiretty'
-#        dest: /etc/sudoers.d/apigee-requiretty
+    - name: Copy archive to target node
+      become: true
+      synchronize:
+        src: "{{ local_apigee_path }}/{{ apigee_archive_name }}"
+        dest: "{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}"
+        rsync_opts: ['--partial-dir={{ opdk_installer_path }}']
 
-    - block:
-
-      - name: Copy archive to target node
-        become: true
-        synchronize:
-          src: "{{ local_apigee_path }}/{{ apigee_archive_file_name }}"
-          dest: "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
-          rsync_opts: ['--partial-dir={{ opdk_resources_path }}']
-
-      rescue:
-        - name: Copy archive using SCP
-          shell: "scp -i ~/.ssh/id_rsa {{ local_apigee_path }}/{{ apigee_archive_file_name }} {{ inventory_hostname }}:{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_file_name }}"
-          delegate_to: localhost
-
-#    - name: Remove temporary tty
-#      become: yes
-#      file:
-#        path: /etc/sudoers.d/apigee-requiretty
-#        state: absent
-
-- name: Create folder for archive contents
+- name: Unarchive on target node
   become: true
-  file:
-    path: '{{ item }}'
-    state: directory
-  with_items:
-  - "{{ apigeerepobasepath | default(opdk_resources_path) }}/{{ apigee_archive_name }}"
-  - "{{ apigeerepobasepath | default(opdk_resources_path) }}"
+  unarchive:
+    src: '{{ apigeerepobasepath | default(opdk_installer_path) }}/{{ apigee_archive_name }}'
+    dest: '{{ apigeerepobasepath | default(opdk_installer_path) }}'
+    copy: false
+    owner: "{{ opdk_user_name }}"
+    group: "{{ opdk_group_name }}"
 
 
